@@ -8,6 +8,7 @@ def main():
 
     db = {}
 
+    # Initialise roles
     for r in roles:
         id = r.id
         # Initialise a new key
@@ -17,12 +18,18 @@ def main():
                 'children_roles': []
             }
 
+    # Add children roles
     for r in roles:
         parent = r.parent
         try:
             db[parent]['children_roles'].append(r.id)
         except KeyError as e:
             pass
+
+    # Place users
+    for u in users:
+        role = u.role
+        db[role]['users'].append(u)
 
     print(db)
 
