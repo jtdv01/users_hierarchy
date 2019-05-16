@@ -9,10 +9,20 @@ def main():
     db = {}
 
     for r in roles:
-        parent = r.parent
+        id = r.id
         # Initialise a new key
-        if parent not in db.keys():
-            db[parent] = []
+        if id not in db.keys():
+            db[id]={
+                'users': [],
+                'children_roles': []
+            }
+
+    for r in roles:
+        parent = r.parent
+        try:
+            db[parent]['children_roles'].append(r.id)
+        except KeyError as e:
+            pass
 
     print(db)
 
