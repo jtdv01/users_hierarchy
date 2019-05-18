@@ -2,7 +2,6 @@ import json
 from argparse import ArgumentParser
 from user import User
 from role import Role
-import pdb 
 
 def arg_parser():
     parser = ArgumentParser()
@@ -31,7 +30,7 @@ def parse_roles_and_users(file_loc: str):
 
     # Parse as objects
     roles = {r["Id"]:Role(r["Id"], r["Name"], r["Parent"]) for r in roles_input}
-    users = [User(u["Id"], u["Name"], u["Role"]) for u in users_input]
+    users = {u["Id"]:User(u["Id"], u["Name"], u["Role"]) for u in users_input}
 
     # Attach parents to roles
     for k, current_role in roles.items():
@@ -40,10 +39,14 @@ def parse_roles_and_users(file_loc: str):
         # Try to fetch the parent role
         try:
             parent_role = roles[parent_role_id]
-            current_role.set_parent_role(parent_role)
+            # Add child roles
+            parent_role.add_child_role(current_role)
+            
+            # Add parent role. This is redundant with a simpler child role reference
+            # current_role.set_parent_role(parent_role)
+
         except KeyError as e:
             # If parent can't be found, it must be a root role
             current_role.set_as_root_role()
 
-    pdb.set_trace()
     return(roles, users)

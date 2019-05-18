@@ -8,12 +8,15 @@ class Role():
 
         self.is_root_role = False
 
-    def set_parent_role(self, parent_role: 'Role'):
-        self.parent_role = parent_role
-
     def set_as_root_role(self):
+        """
+        If no parent is found on the database, set this as a root role
+        """
         self.is_root_role = True
 
     def add_child_role(self, child_role: 'Role'):
+        """
+        Add a single role as a child role
+        """
         self.children_roles.append(child_role)
 
