@@ -22,6 +22,7 @@ def init_roles(roles):
 
     # Add children nodes to their parents
     for r in roles:
+        pdb.set_trace()
         parent_role_id = r.parent.id
         try:
             parent_role = db['roles'][parent_role_id]
