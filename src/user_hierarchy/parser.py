@@ -49,4 +49,13 @@ def parse_roles_and_users(file_loc: str):
             # If parent can't be found, it must be a root role
             current_role.set_as_root_role()
 
+    # Set roles to users
+    for k, current_user in users.items():
+        role_id = current_user.role_id
+        try:
+            current_user.set_role(roles[role_id])
+        except:
+            # TODO: Unable to set a role
+            pass
+
     return(roles, users)
