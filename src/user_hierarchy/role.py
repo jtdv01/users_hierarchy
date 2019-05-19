@@ -8,6 +8,9 @@ class Role():
 
         self.is_root_role = False
 
+    def __repr__(self):
+        return f"{{'RoleID': '{self.id}', 'Name': '{self.name}'}}"
+
     def set_as_root_role(self):
         """
         If no parent is found on the database, set this as a root role
@@ -24,15 +27,15 @@ class Role():
         if len(self.children_roles) == 0:
             return set()
 
-        # Breadth first search of subordinate roles
+        # Recursive depth first search of subordinate roles
         subordinate_roles = found_so_far
         for r in self.children_roles:
             # Add direct descendants
-            subordinate_roles.update(r)
+            subordinate_roles.add(r)
 
+            # Add child's desencdants
             childs_subordinates = r.find_subordinate_roles(subordinate_roles)
             if childs_subordinates != set():
                 subordinate_roles = subordinate_roles.union(childs_subordinates)
-
 
         return subordinate_roles
