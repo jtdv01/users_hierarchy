@@ -5,7 +5,7 @@ from copy import deepcopy
 
 def find_subordinate_roles(role: Role, found_so_far = set()):
     """
-    Recursive do a depth first search of subordinate roles
+    Recursively do a depth first search of subordinate roles
 
     :return: subordinate_roles -- A list of role id's under this current role
     :rtype: set

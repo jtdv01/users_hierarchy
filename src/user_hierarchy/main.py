@@ -28,11 +28,11 @@ def main():
 
     logging.info(db)
 
-    # Start a REPL for querying subordinate users given a user id
+    # Start a REPL for finding out the subordinate users of a given user id
     wait_for_user_input = True
     print_welcome()
     while wait_for_user_input:
-        user_input = input("Type in User ID to query >")
+        user_input = input("Type in User ID to query > ")
 
         if user_input == "quit":
             wait_for_user_input = False
@@ -49,7 +49,6 @@ def main():
             continue
 
         try:
-
             query_user_id = int(user_input)
             user = db['users'][query_user_id]
             logging.info(f"User {user.id} has a Role ID {user.role.id}. Searching for subordinate users..")
@@ -60,7 +59,6 @@ def main():
             for u in subordinate_users:
                 print(u)
                 logging.info(u)
-
         except ValueError as e:
             print("Invalid user input")
         except KeyError as e:
