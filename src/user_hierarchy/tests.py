@@ -1,6 +1,7 @@
 import unittest
 from parser import parse_roles_and_users
 from db import init_db
+#from subordinate_search import subordinate_search
 
 class TestUserHierarchy(unittest.TestCase):
 
@@ -23,6 +24,14 @@ class TestUserHierarchy(unittest.TestCase):
                 self.assertTrue(user.role_id != 1)
 
         print("Test that only Adam Admin has the only role role: OK")
+
+    def test_find_subordinate_roles(self):
+        root_role = self.db['roles'][1]
+
+        x = root_role.find_subordinate_roles(set())
+        print(x)
+
+
 
 
 if __name__ == '__main__':

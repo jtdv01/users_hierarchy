@@ -3,6 +3,7 @@ from parser import arg_parser, parse_roles_and_users
 from db import init_db
 import logging
 from datetime import datetime
+from subordinate_search import subordinate_search
 
 def setup_logger():
     FORMAT = "%(asctime)-15s %(levelname)s-%(message)s"
@@ -24,7 +25,9 @@ def main():
         try:
             query_user_id = int(user_input)
             user = db['users'][query_user_id]
-            logging.info(f"User {user.id} has a Role ID {user.role.id}")
+            logging.info(f"User {user.id} has a Role ID {user.role.id}. Searching for subordinate users..")
+            subordinate_users = subordinate_search(db, user)
+            print(subordinate_users)
         except ValueError as e:
             print("Invalid user input")
         except KeyError as e:

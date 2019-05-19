@@ -19,3 +19,20 @@ class Role():
         Add a single role as a child role
         """
         self.children_roles.append(child_role)
+
+    def find_subordinate_roles(self, found_so_far = set()):
+        if len(self.children_roles) == 0:
+            return set()
+
+        # Breadth first search of subordinate roles
+        subordinate_roles = found_so_far
+        for r in self.children_roles:
+            # Add direct descendants
+            subordinate_roles.update(r)
+
+            childs_subordinates = r.find_subordinate_roles(subordinate_roles)
+            if childs_subordinates != set():
+                subordinate_roles = subordinate_roles.union(childs_subordinates)
+
+
+        return subordinate_roles

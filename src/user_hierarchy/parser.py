@@ -2,6 +2,7 @@ import json
 from argparse import ArgumentParser
 from user import User
 from role import Role
+import logging
 
 def arg_parser():
     parser = ArgumentParser()
@@ -53,6 +54,7 @@ def parse_roles_and_users(roles_filepath: str, users_filepath: str):
 
         except KeyError as e:
             # If parent can't be found, it must be a root role
+            logging.info(f"RoleID {current_role.id} is the root role")
             current_role.set_as_root_role()
 
     # Set roles to users
@@ -61,8 +63,7 @@ def parse_roles_and_users(roles_filepath: str, users_filepath: str):
         try:
             current_user.set_role(roles[role_id])
         except:
-            # TODO: Unable to set a role
-            pass
+            logging.warning(f"Unable to set role {role_id} to {current_user}")
 
     return(roles, users)
 
