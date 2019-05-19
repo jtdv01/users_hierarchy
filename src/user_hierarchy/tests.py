@@ -8,10 +8,21 @@ class TestUserHierarchy(unittest.TestCase):
         roles_filepath = "resources/roles.json"
         users_filepath = "resources/users.json"
         self.roles, self.users = parse_roles_and_users(roles_filepath, users_filepath)
-        db = init_db(self.roles, self.users)
+        self.db = init_db(self.roles, self.users)
 
-    def test_isupper(self):
-        self.assertTrue(1 == 1)
+    def test_who_is_root(self):
+        # Assert that the RoleID 1 is the root role
+        self.assertTrue(self.db['roles'][1].is_root_role)
+
+        # Assert that only Adam Admin has the root role
+        for uid, user in self.db['users'].items():
+            if uid == 1:
+                self.assertTrue(user.role_id == 1)
+                self.assertTrue(user.name == "Adam Admin")
+            else:
+                self.assertTrue(user.role_id != 1)
+
+        print("Test that only Adam Admin has the only role role: OK")
 
 
 if __name__ == '__main__':
