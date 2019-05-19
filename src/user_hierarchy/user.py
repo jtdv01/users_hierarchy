@@ -12,4 +12,4 @@ class User():
         self.role = role
 
     def __repr__(self):
-        return f"<Id: {self.id}|Name: {self.name}|Role: {self.role}>"
+        return f"{{'user_id': {self.id}, 'user_name': {self.name}, 'user_role': {self.role}}}"
