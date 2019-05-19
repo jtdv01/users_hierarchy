@@ -32,10 +32,10 @@ For example, querying the Admin (UserID = 1) will print out all users under this
 Type in User ID to query >1
 
 Found 4 users under UserID: 1 UserName: Adam Admin
-{'user_id': 2, 'user_name': 'Emily Employee', 'user_role': {'role_id': '4', 'role_name': 'Employee'}}
-{'user_id': 3, 'user_name': 'Sam Supervisor', 'user_role': {'role_id': '3', 'role_name': 'Supervisor'}}
-{'user_id': 4, 'user_name': 'Mary Manager', 'user_role': {'role_id': '2', 'role_name': 'Location Manager'}}
-{'user_id': 5, 'user_name': 'Steve Trainer', 'user_role': {'role_id': '5', 'role_name': 'Trainer'}}
+{"user_id": 2, "user_name": "Emily Employee", "user_role": {"role_id": "4", "role_name": "Employee"}}
+{"user_id": 3, "user_name": "Sam Supervisor", "user_role": {"role_id": "3", "role_name": "Supervisor"}}
+{"user_id": 4, "user_name": "Mary Manager", "user_role": {"role_id": "2", "role_name": "Location Manager"}}
+{"user_id": 5, "user_name": "Steve Trainer", "user_role": {"role_id": "5", "role_name": "Trainer"}}
 
 
 ```
@@ -49,16 +49,16 @@ Another `make` directive can be called to containerise the whole application. Us
 ```json
 
 {
-   'roles': {
-       1: {'role_id': 1, 'role_name': ...}
+   "roles": {
+       1: {"role_id": 1, "role_name": ...}
    },
    
-   'users': {
-       1: {'user_id': 1, 'user_name': ..., 'role_id': 1}
-       2: {'user_id': 2, 'user_name': ..., 'role_id': 1}
+   "users": {
+       1: {"user_id": 1, "user_name": ..., "role_id": 1}
+       2: {"user_id": 2, "user_name": ..., "role_id": 1}
    },
    
-   'role_membership': {
+   "role_membership": {
        1: [1,2] # <-- Role 1 has users 1 and 2
    }
 

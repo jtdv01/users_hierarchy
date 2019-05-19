@@ -9,7 +9,7 @@ class Role():
         self.is_root_role = False
 
     def __repr__(self):
-        return f"{{'role_id': {self.id}, 'role_name': '{self.name}'}}"
+        return f"""{{"role_id": {self.id}, "role_name": "{self.name}"}}"""
 
     def set_as_root_role(self):
         """
