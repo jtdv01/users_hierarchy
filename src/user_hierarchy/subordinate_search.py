@@ -27,7 +27,7 @@ def find_subordinate_roles(role: Role, found_so_far = set()):
 
         return subordinate_roles
 
-def subordinate_search(db: dict, query_user_id: int):
+def find_subordinate_users(db: dict, query_user_id: int):
     """
     Returns a set of user ids that are under a given user_id
 
@@ -39,7 +39,10 @@ def subordinate_search(db: dict, query_user_id: int):
     """
 
     # Find out the role of the user
-    role_id = db['users'][query_user_id].role_id
+    try:
+        role_id = db['users'][query_user_id].role_id
+    except KeyError as e:
+        return []
 
     # Find out the subordinate roles of this user
     subordinate_roles = find_subordinate_roles(db['roles'][role_id])

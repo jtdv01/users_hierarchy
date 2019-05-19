@@ -1,13 +1,13 @@
 import unittest
 from parser import parse_roles_and_users
 from db import init_db
-from subordinate_search import subordinate_search
+from subordinate_search import find_subordinate_users
 
 def assert_subordinate(utest, db: dict, user_id: int, subordinate_user_ids: list):
     """
     Assert that subordinate_user_ids are under user_id
     """
-    subordinate_users = subordinate_search(db, user_id)
+    subordinate_users = find_subordinate_users(db, user_id)
     user_ids_under = sorted(set([u.id for u in subordinate_users]))
     assertion = user_ids_under == sorted(subordinate_user_ids)
     utest.assertTrue(assertion)
@@ -63,6 +63,20 @@ class TestUserHierarchy(unittest.TestCase):
         """
         assert_subordinate(self, self.db, 3, [2, 5])
         print("Test supervisor is above Emily and Steve: OK")
+
+    def test_supervisor(self):
+        """
+        Location manager must be above supervisor, employee and trainee
+        """
+        assert_subordinate(self, self.db, 4, [2, 3, 5])
+        print("Test Location Manager: OK")
+
+    def test_empty(self):
+        """
+        Location manager must be above supervisor, employee and trainee
+        """
+        assert_subordinate(self, self.db, None, [])
+        print("Test empty: OK")
 
 if __name__ == '__main__':
     unittest.main()
