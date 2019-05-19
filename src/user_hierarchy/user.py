@@ -9,11 +9,7 @@ class User():
         self.role = None
 
     def set_role(self, role: Role):
-        self.role = role 
+        self.role = role
 
     def __repr__(self):
-        return f"<Id: {self.id}|Name: {self.name}|Role: {self.role}>"
-
-def set_users(db, users):
-    db['users'] = users
-    return db
+        return f"{{'user_id': {self.id}, 'user_name': {self.name}, 'user_role': {self.role}}}"
