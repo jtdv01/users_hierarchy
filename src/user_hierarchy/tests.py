@@ -3,16 +3,16 @@ from parser import parse_roles_and_users
 from db import init_db
 from subordinate_search import subordinate_search
 
+def assert_subordinate(utest, db: dict, user_id: int, subordinate_user_ids: list):
+    """
+    Assert that subordinate_user_ids are under user_id
+    """
+    subordinate_users = subordinate_search(db, user_id)
+    user_ids_under = sorted(set([u.id for u in subordinate_users]))
+    assertion = user_ids_under == sorted(subordinate_user_ids)
+    utest.assertTrue(assertion)
 
 class TestUserHierarchy(unittest.TestCase):
-    def assert_subordinate(self, db: dict, user_id: int, subordinate_user_ids: list):
-        subordinate_users = subordinate_search(db, user_id)
-        user_ids_under = sorted(set([u.id for u in subordinate_users]))
-        assertion = user_ids_under == sorted(subordinate_user_ids)
-        if assertion != True:
-            import pdb; pdb.set_trace()
-
-        self.assertTrue(assertion)
 
     def setUp(self):
         roles_filepath = "resources/roles.json"
@@ -42,7 +42,7 @@ class TestUserHierarchy(unittest.TestCase):
         """
         Root has subordinates except himself
         """
-        self.assert_subordinate(self.db, self.root_user_id, [2,3,4,5])
+        assert_subordinate(self, self.db, self.root_user_id, [2,3,4,5])
         print("Test that Root is above all others: OK")
 
     def test_employee_and_trainer_has_no_one(self):
@@ -51,9 +51,9 @@ class TestUserHierarchy(unittest.TestCase):
         """
 
         # Emily Employee do not have anyone under
-        self.assert_subordinate(self.db, 2, [])
+        assert_subordinate(self, self.db, 2, [])
         # Steve Trainer do not have anyone under
-        self.assert_subordinate(self.db, 5, [])
+        assert_subordinate(self, self.db, 5, [])
         print("Test that employee and trainee do not have anyone under them: OK")
 
 
@@ -61,7 +61,7 @@ class TestUserHierarchy(unittest.TestCase):
         """
         Supervisor is above Emily and Steve
         """
-        self.assert_subordinate(self.db, 3, [4, 5])
+        assert_subordinate(self, self.db, 3, [2, 5])
         print("Test supervisor is above Emily and Steve: OK")
 
 if __name__ == '__main__':

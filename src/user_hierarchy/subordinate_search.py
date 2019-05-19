@@ -1,6 +1,7 @@
 from user import User
 from role import Role
 import logging
+from copy import deepcopy
 
 def find_subordinate_roles(role: Role, found_so_far = set()):
     """
@@ -13,17 +14,18 @@ def find_subordinate_roles(role: Role, found_so_far = set()):
     # Base case
     if len(role.children_roles) == 0:
         return set()
+    else:
+        # Create a deep copy because Python can sometimes modify a passed parameter
+        subordinate_roles = deepcopy(found_so_far)
+        for child_role in role.children_roles:
+            # Add direct descendants
+            subordinate_roles.add(child_role)
 
-    subordinate_roles = found_so_far
-    for child_role in role.children_roles:
-        # Add direct descendants
-        subordinate_roles.add(child_role)
+            # Add child's desencdants recursively
+            childs_subordinates = find_subordinate_roles(child_role, subordinate_roles)
+            subordinate_roles = subordinate_roles.union(childs_subordinates)
 
-        # Add child's desencdants recursively
-        childs_subordinates = find_subordinate_roles(child_role, subordinate_roles)
-        subordinate_roles = subordinate_roles.union(childs_subordinates)
-
-    return subordinate_roles
+        return subordinate_roles
 
 def subordinate_search(db: dict, query_user_id: int):
     """
@@ -50,7 +52,6 @@ def subordinate_search(db: dict, query_user_id: int):
         subordinate_user_ids.update(db['role_membership'][role.id])
 
     # Lookup the actual users, but do not count itself
-    subordinate_users = [db['users'][user_id] for user_id in subordinate_user_ids if user_id != query_user_id]
-
+    subordinate_users = [db['users'][user_id] for user_id in subordinate_user_ids]
     return subordinate_users
 
