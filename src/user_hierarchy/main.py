@@ -12,6 +12,14 @@ def setup_logger():
     logfile = f"logs/{today}.log"
     logging.basicConfig(format=FORMAT, filename=logfile, filemode='w+', level=logging.INFO)
 
+def print_welcome():
+    print("\nWelcome to UserHierarchyDB!\n")
+    print("Type in the user id of interest.")
+    print("Information about subordinate users will then be showed.")
+    print("To see this information again, type in `help`")
+    print("To see the current state of the database type in `db`. WARNING! This can be large!")
+    print("\n\nTo quit type in `quit`\n\n")
+
 def main():
     setup_logger()
     args = arg_parser()
@@ -22,6 +30,7 @@ def main():
 
     # Start a REPL for querying subordinate users given a user id
     wait_for_user_input = True
+    print_welcome()
     while wait_for_user_input:
         user_input = input("Type in User ID to query >")
 
@@ -29,6 +38,15 @@ def main():
             wait_for_user_input = False
             print("Bye!")
             sys.exit(0)
+
+        if user_input == "help":
+            print_welcome()
+            continue
+
+        if user_input == "db":
+            # Print the current database. This can be large!
+            print(db)
+            continue
 
         try:
 
@@ -41,6 +59,7 @@ def main():
             print(f"Found {len(subordinate_users)} users under UserID: {user.id} UserName: {user.name}")
             for u in subordinate_users:
                 print(u)
+                logging.info(u)
 
         except ValueError as e:
             print("Invalid user input")
