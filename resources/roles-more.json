@@ -1,0 +1,55 @@
+{
+    "roles": [
+      {
+        "Id": 1,
+        "Name": "System Administrator",
+        "Parent": 0
+      },
+      {
+        "Id": 2,
+        "Name": "Location Manager",
+        "Parent": 1
+      },
+      {
+        "Id": 3,
+        "Name": "Supervisor",
+        "Parent": 2
+      },
+      {
+        "Id": 4,
+        "Name": "Employee",
+        "Parent": 3
+      },
+      {
+        "Id": 5,
+        "Name": "Trainer",
+        "Parent": 3
+      },
+      {
+        "Id": 99,
+        "Name": "99",
+        "Parent": 1
+      },
+      {
+        "Id": 101,
+        "Name": "101",
+        "Parent": 99
+      },
+      {
+        "Id": 201,
+        "Name": "201",
+        "Parent": 99
+      },
+      {
+        "Id": 301,
+        "Name": "301",
+        "Parent": 99
+      },
+      {
+        "Id": 501,
+        "Name": "501",
+        "Parent": 5
+      }
+    ]
+  }
+  

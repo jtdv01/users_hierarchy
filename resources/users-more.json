@@ -1,0 +1,55 @@
+{
+    "users": [
+      {
+        "Id": 1,
+        "Name": "Adam Admin",
+        "Role": 1
+      },
+      {
+        "Id": 2,
+        "Name": "Emily Employee",
+        "Role": 4
+      },
+      {
+        "Id": 3,
+        "Name": "Sam Supervisor",
+        "Role": 3
+      },
+      {
+        "Id": 4,
+        "Name": "Mary Manager",
+        "Role": 2
+      },
+      {
+        "Id": 5,
+        "Name": "Steve Trainer",
+        "Role": 5
+      },
+      {
+        "Id": 99,
+        "Name": "99",
+        "Role": 99
+      },
+      {
+        "Id": 101,
+        "Name": "101",
+        "Role": 101
+      },
+      {
+        "Id": 201,
+        "Name": "201",
+        "Role": 201
+      },
+      {
+        "Id": 301,
+        "Name": "301",
+        "Role": 301
+      },
+      {
+        "Id": 501,
+        "Name": "501",
+        "Role": 501
+      }
+    ]
+  }
+  
