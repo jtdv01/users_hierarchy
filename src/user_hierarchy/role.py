@@ -23,27 +23,3 @@ class Role():
         """
         self.children_roles.append(child_role)
 
-    def find_subordinate_roles(self, found_so_far = set()):
-        """
-        Recursive do a depth first search of subordinate roles
-
-        :return: subordinate_roles -- A list of role id's under this current role
-        :rtype: set
-        """
-
-        # Base case
-        if len(self.children_roles) == 0:
-            return set()
-
-        subordinate_roles = found_so_far
-        for r in self.children_roles:
-            # Add direct descendants
-            subordinate_roles.add(r)
-
-            # Add child's desencdants recursively
-            childs_subordinates = r.find_subordinate_roles(subordinate_roles)
-
-            if childs_subordinates != set():
-                subordinate_roles = subordinate_roles.union(childs_subordinates)
-
-        return subordinate_roles
