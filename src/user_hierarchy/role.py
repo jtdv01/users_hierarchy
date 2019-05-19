@@ -19,8 +19,3 @@ class Role():
         Add a single role as a child role
         """
         self.children_roles.append(child_role)
-
-
-def set_roles(db, roles):
-    db['roles'] = roles
-    return db

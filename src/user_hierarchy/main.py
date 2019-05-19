@@ -1,20 +1,11 @@
 #! /usr/bin/python3
 from parser import arg_parser, parse_roles_and_users
-from user import set_users
-from role import set_roles
-
-
-def init_db():
-    db = {}
-    return db
+from db import init_db
 
 def main():
     args = arg_parser()
-    roles, users = parse_roles_and_users(args.input_file)
-
-    db = init_db()
-    db = set_roles(db, roles)
-    db = set_users(db, users)
+    roles, users = parse_roles_and_users(args.roles_filepath, args.users_filepath)
+    db = init_db(roles, users)
 
     wait_for_user_input = True
     while wait_for_user_input:

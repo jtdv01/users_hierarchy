@@ -13,7 +13,3 @@ class User():
 
     def __repr__(self):
         return f"<Id: {self.id}|Name: {self.name}|Role: {self.role}>"
-
-def set_users(db, users):
-    db['users'] = users
-    return db
